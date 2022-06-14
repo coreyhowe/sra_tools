@@ -9,14 +9,33 @@ import os
 from latch import small_task, large_task, workflow
 from latch.types import LatchFile, LatchDir
 
-@large_task
-def getseq_task(id: str, output_dir: LatchDir) -> LatchDir:
+#import bioinfokit
 
+@small_task
+def getseq_task(id: str, output_dir: LatchDir) -> LatchDir:
+#def getseq_task(id: str, output_dir: LatchDir): # -> LatchDir:
+	
+	
+	#command
+	_fastqdump_cmd = [
+		"sra-downloader",
+		id,
+		"--save-dir",
+		"root/"
+		]
+		
+	subprocess.run(_fastqdump_cmd)
+	return LatchDir("root/", output_dir.remote_path)
+	
+	
+	
+	
 	#output_prefix = "sra"
 
 	# directory of output
-	local_dir = Path(dir).resolve()
-	local_id = Path(id).resolve()
+	#local_dir = "/root"
+	#out_basename = str(output_dir.remote_path)
+	#fasta_basename = str(os.path.basename(fasta.local_path))
 
 	
 	#local_prefix = os.path.join(local_dir, output_prefix)
@@ -28,26 +47,29 @@ def getseq_task(id: str, output_dir: LatchDir) -> LatchDir:
 	#]
 	
 	# command2
-	_fastqdump_cmd = [
-        "fastq-dump",
-        "-v",
-        str(id),
-        "--split-files",
-        "--gzip",
-        "-O",
-        str(local_dir),
-		]
+	#_fastqdump_cmd = [
+        #"fastq-dump",
+       # id,
+       # "--split-files",
+      #  "--gzip"
+      #  ]
+        #"-O",
+        #local_dir,
+		#]
 		
 	#subprocess.run(_config_cmd)		
-	subprocess.run(_fastqdump_cmd)
+	#subprocess.run(_fastqdump_cmd)
 
-	return LatchDir(str(local_dir), output_dir.remote_path) #f"latch:///{output_dir}/")
+	#return LatchDir(local_dir, output_dir.remote_path)
+	#return file_glob(f"{id}.fastq.gz", f"{out_basename}"))
 
 @workflow
 def sra_tools(id: str, output_dir: LatchDir) -> LatchDir: 
     """
 
 	# SRA Tools
+	
+	
     
 
     __metadata__:
