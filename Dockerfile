@@ -36,25 +36,6 @@ RUN sed -i 's/IMAGE_GUID/GUID/' /root/.ncbi/user-settings.mkfg
 
 
 
-
-#RUN vdb-config --interactive 
-
-
-#RUN pip install python-on-whales
-#RUN python-on-whales download-cli
-
-
-
-
-#RUN wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.0.0/setup-apt.sh &&/
-#	bash setup-apt.sh
-#RUN ls
-#RUN apt-get update && \
- #     apt-get -y install sudo
-#RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-#RUN sudo sh setup-apt.sh
-
-
 # STOP HERE:
 # The following lines are needed to ensure your build environment works
 # correctly with latch.
