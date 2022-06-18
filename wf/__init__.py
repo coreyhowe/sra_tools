@@ -15,13 +15,37 @@ def getseq_task(id: str, output_dir: LatchDir) -> LatchDir:
 	
 	
 	#command
-	_fastqdump_cmd = [
-		"sra-downloader",
+	#_fastqdump_cmd = [
+		#"sra-downloader",
+		#id,
+		#"--save-dir",
+		#"root/"
+		#]
+	#_config_cmd = [
+		#"vdb-config",
+		#"—restore-defaults"]
+		
+	#_config_cmd = [
+	#	"vdb-config",
+	#	"--prefetch-to-cwd"]
+	
+	_prefetch_cmd = [
+		"prefetch",
+		"-O",
+		"root/",
+		"--max-size",
+		"u",
 		id,
-		"--save-dir",
-		"root/"
 		]
 		
+	_fastqdump_cmd = [
+		"fasterq-dump",
+		"-O",
+		"root/",
+		id
+		]
+		
+	subprocess.run(_prefetch_cmd)
 	subprocess.run(_fastqdump_cmd)
 	
 	return LatchDir("root/", output_dir.remote_path)
@@ -42,7 +66,7 @@ def sra_tools(id: str, output_dir: LatchDir) -> LatchDir:
             name: Corey Howe
             email: 	
             github: https://github.com/coreyhowe
-        repository: https://github.com/coreyhowe/latch_sra-tools
+        repository: https://github.com/coreyhowe/sra-tools
         license:
             id: MIT
 
